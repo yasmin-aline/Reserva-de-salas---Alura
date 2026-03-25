@@ -212,6 +212,7 @@ O diagrama abaixo representa o fluxo macro da arquitetura (camadas Controller �
 
 ![Diagrama de operações](img/operacoes-possiveis.png)
 
+---
 
 **Fluxo de criação de reserva — passo a passo:**
 
