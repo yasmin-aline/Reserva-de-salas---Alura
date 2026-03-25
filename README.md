@@ -206,6 +206,13 @@ O diagrama abaixo representa o fluxo macro da arquitetura (camadas Controller �
 
 ![Diagrama de Fluxo da API](img/diagrama.png)
 
+----
+
+## Operações possíveis
+
+![Diagrama de operações](img/operacoes-possiveis.png)
+
+
 **Fluxo de criação de reserva — passo a passo:**
 
 1. `POST /api/v1/reservas` recebe o DTO com `salaId`, `usuarioId`, `inicio` e `fim`
