@@ -206,6 +206,13 @@ O diagrama abaixo representa o fluxo macro da arquitetura (camadas Controller �
 
 ![Diagrama de Fluxo da API](img/diagrama.png)
 
+----
+
+## Operações possíveis
+
+![Diagrama de operações](img/operacoes-possiveis.png)
+
+
 **Fluxo de criação de reserva — passo a passo:**
 
 1. `POST /api/v1/reservas` recebe o DTO com `salaId`, `usuarioId`, `inicio` e `fim`
@@ -289,51 +296,6 @@ src/main/java/
 ```
 GET /api/v1/reservas/intervalo?salaId=1&inicio=2024-12-01T00:00:00&fim=2024-12-31T23:59:59
 ```
-
----
-
-## Como Executar
-
-### Pré-requisitos
-
-- Java 17+
-- Maven 3.8+
-- MySQL (ou use H2 para testes)
-
-### Rodando localmente
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/reservas-api.git
-cd reservas-api
-
-# 2. As configurações de banco estão parametrizadas por variáveis de ambiente em application-dev.properties.
-# Você precisa definir as seguintes variáveis de ambiente na sua IDE ou Terminal antes de rodar:
-# DB_URL=SEU_JDBC_URL
-# DB_USERNAME=SEU_USUARIO_DO_BANCO
-# DB_PASSWORD=SUA_SENHA_DO_BANCO
-
-# 3. Execute a aplicação (substituindo com os valores correspondentes se for rodar via terminal)
-export DB_URL=SEU_JDBC_URL
-export DB_USERNAME=SEU_USUARIO_DO_BANCO
-export DB_PASSWORD=SUA_SENHA_DO_BANCO
-./mvnw spring-boot:run
-```
-
-A API estará disponível em `http://localhost:8080/api/v1`.
-
----
-
-## Decisões Técnicas
-
-**Por que @Transactional na criação de reserva?**
-A verificação de conflito (leitura) e o `save` (escrita) precisam ser atômicos. Sem isso, dois usuários poderiam verificar "sem conflito" simultaneamente e os dois salvarem — gerando reserva dupla (*race condition*). O `@Transactional` garante que os dois passos rodem na mesma transação de banco.
-
-**Por que soft delete no cancelamento?**
-Deletar fisicamente perderia o histórico de reservas. Com status `CANCELADA`, o registro fica disponível para auditoria e o horário fica livre para novas reservas (a query de conflito filtra apenas `StatusReserva.ATIVA`).
-
-**Por que injeção via construtor?**
-Permite campos `final` (imutabilidade), torna dependências explícitas e facilita testes unitários — os mocks são passados diretamente no construtor sem necessidade de framework de reflexão.
 
 ---
 
