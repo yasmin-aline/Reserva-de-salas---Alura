@@ -514,7 +514,3 @@ curl -X POST http://localhost:8083/api/v1/reservas \
 ```bash
 cd booking-service && mvn test
 ```
-
----
-
-*Projeto desenvolvido como parte da formação prática na [Alura](https://www.alura.com.br).*
