@@ -1,0 +1,48 @@
+name: CI — Build, Test & Package
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build — compilar todos os modulos
+        run: mvn -B install -DskipTests --no-transfer-progress
+
+      - name: Testes — user-service
+        run: mvn -B test -pl user-service --no-transfer-progress
+
+      - name: Testes — room-service
+        run: mvn -B test -pl room-service --no-transfer-progress
+
+      - name: Testes — booking-service
+        run: mvn -B test -pl booking-service --no-transfer-progress
+
+      - name: Package — gerar JARs
+        run: mvn -B package -DskipTests --no-transfer-progress
+
+      - name: Upload JARs
+        uses: actions/upload-artifact@v4
+        with:
+          name: service-jars-${{ github.run_number }}
+          path: |
+            user-service/target/*-SNAPSHOT.jar
+            room-service/target/*-SNAPSHOT.jar
+            booking-service/target/*-SNAPSHOT.jar
+          retention-days: 7
+
