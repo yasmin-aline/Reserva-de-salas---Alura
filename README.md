@@ -243,6 +243,10 @@ src/main/java/
 
 O monolito foi quebrado em 3 microsserviços independentes, cada um com seu próprio banco de dados, e novas funcionalidades foram adicionadas.
 
+## Diagrama de Caso de Uso (Fase 2)
+
+![Diagrama de caso de uso](img/diagrama-caso-de-uso.png)
+
 ## Arquitetura
 
 ```
