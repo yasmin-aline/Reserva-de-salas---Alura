@@ -1,6 +1,6 @@
 # API de Gerenciamento de Reservas de Salas
 
-> Projeto prático desenvolvido durante a formação na Alura — API REST para gerenciamento de reservas de salas de reunião, construída com Java e Spring Boot.
+> Projeto prático para a A3 — API REST para gerenciamento de reservas de salas de reunião, construída com Java e Spring Boot.
 
 ---
 
